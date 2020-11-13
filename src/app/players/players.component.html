@@ -1,0 +1,18 @@
+<div class="container details">
+    <div class="row">
+        <h2>TIC-TAC-TOE</h2>
+    </div>
+    <hr><hr>
+    <h5>Player-1: <span style="color: red;" *ngIf="turn">Playing</span></h5>
+    <!-- <p>score: 0</p> -->
+    <hr>
+    <h5>Player-2: <span style="color: red;" *ngIf="!turn">Playing</span></h5>
+    <!-- <p>score: 0</p> -->
+    <hr><hr>
+    <div class="row">
+        <!-- <button class="btn btn-primary">New game</button> |  -->
+        <button 
+            class="btn btn-danger"
+            (click)="onClear()">Clear game</button>
+    </div>
+</div>
