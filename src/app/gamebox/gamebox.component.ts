@@ -34,11 +34,31 @@ export class GameboxComponent implements OnInit, OnDestroy {
     // }
     if(!this.elements.hasOwnProperty(n-1)) {
       this.elements[n-1] = this.appService.symbol;
-      this.appService.playerTurn();
-      this.appService.isGameOver();
-      this.turn = this.appService.turn;
+      if(!this.isGameOver()) {
+        this.appService.playerTurn();
+        this.turn = this.appService.turn;
+      }
     } else {
       alert("This box is occupied!");
+    }
+  }
+
+  isGameOver() {
+    let emptyBoxes = 0;
+    for(let i = 0; i < 9; i++) {
+        if(!this.elements.hasOwnProperty(i)) {
+            emptyBoxes += 1;
+        }
+    }
+
+    if(this.appService.winCheck() === 'win'){
+        alert(`Game over: ${this.appService.nowPlaying} won`);
+        this.clearGame();
+        return true;
+    } else if(emptyBoxes === 0) {
+        alert("Game over: No more moves left. It's a tie");
+        this.clearGame();
+        return false;
     }
   }
 
