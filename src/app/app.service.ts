@@ -20,6 +20,7 @@ export class AppService {
         }
         this.turn = !this.turn;
         this.playerChanged.next(this.turn);
+        alert(`Now ${this.nowPlaying}'s turn`);
     }
 
     isGameOver() {
