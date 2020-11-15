@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { GameModel } from './game.model';
+
 @Injectable({providedIn: 'root'})
 export class AppService {
+    gameData: GameModel;
     nowPlaying: string = "player-1";
     turn: boolean = true;
     playerChanged = new Subject<boolean>();
@@ -20,6 +23,8 @@ export class AppService {
         }
         console.log(this.turn);
         this.turn = !this.turn;
+        this.gameData = new GameModel(this.elements, this.turn);
+        // console.log(this.gameData);
         this.playerChanged.next(this.turn);
         // alert(`Now ${this.nowPlaying}'s turn`);
     }

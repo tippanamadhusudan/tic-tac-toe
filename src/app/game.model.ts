@@ -1,18 +1,13 @@
-export class Game {
-    public elements: string[];
+export class GameModel {
+    public elements: {};
+    public turn: boolean;
     public nowPlaying: string;
     public symbol: string;
 
-    constructor(elements: string[], nowPlaying: string) {
-        elements;
-        nowPlaying;
-    }
-
-    playerSymbol(): void {
-        if(this.nowPlaying === 'player-1') {
-            this.symbol = 'X';
-        } else {
-            this.symbol = 'O';
-        }
+    constructor(elements: {}, turn: boolean) {
+        this.elements = elements;
+        this.turn = turn;
+        this.nowPlaying = this.turn ? 'player-1' : 'player-2';
+        this.symbol = this.turn ? 'X' : 'O';
     }
 }

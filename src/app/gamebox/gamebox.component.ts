@@ -52,8 +52,8 @@ export class GameboxComponent implements OnInit, OnDestroy {
         return true;
     } else if(emptyBoxes === 0) {
         alert("Game over: No more moves left. It's a tie");
-        return false;
-    }
+        return true;
+    } else return false;
   }
 
   clearGame() {
