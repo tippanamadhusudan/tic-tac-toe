@@ -18,6 +18,7 @@ export class AppService {
             this.nowPlaying = "player-1";
             this.symbol = 'X';
         }
+        console.log(this.turn);
         this.turn = !this.turn;
         this.playerChanged.next(this.turn);
         // alert(`Now ${this.nowPlaying}'s turn`);
@@ -76,10 +77,11 @@ export class AppService {
     }
 
     clearGame() {
-        //this.turn = true;
+        this.turn = true;
+        this.nowPlaying = "player-1"
+        this.symbol = 'X';
         this.elements = {};
         this.gameClear.next(this.elements);
-        this.playerChanged.next(true);
-        this.symbol = 'X';
+        this.playerChanged.next(this.turn);
     }
 }

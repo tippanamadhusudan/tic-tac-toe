@@ -24,20 +24,16 @@ export class GameboxComponent implements OnInit, OnDestroy {
   }
 
   onMarkBox(n: number) {
-    // if(this.elements[n-1] === null) {
-    //   this.elements[n-1] = this.appService.symbol;
-    //   this.appService.isGameOver(this.elements);
-    //   this.appService.playerTurn();
-    //   this.turn = this.appService.turn;
-    // } else {
-    //   alert("This box is occupied!");
-    // }
-    if(!this.elements.hasOwnProperty(n-1)) {
+    if(!this.appService.elements.hasOwnProperty(n-1)) {
       this.elements[n-1] = this.appService.symbol;
-      if(!this.isGameOver()) {
+
+      if(this.isGameOver()) {
+        this.clearGame();
+      } else {
         this.appService.playerTurn();
         this.turn = this.appService.turn;
       }
+
     } else {
       alert("This box is occupied!");
     }
@@ -53,11 +49,9 @@ export class GameboxComponent implements OnInit, OnDestroy {
 
     if(this.appService.winCheck() === 'win'){
         alert(`Game over: ${this.appService.nowPlaying} won`);
-        this.clearGame();
         return true;
     } else if(emptyBoxes === 0) {
         alert("Game over: No more moves left. It's a tie");
-        this.clearGame();
         return false;
     }
   }
