@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { AppService } from '../app.service';
+import { DataStorageService } from '../data-storage.service';
 
 @Component({
   selector: 'app-gamebox',
@@ -8,13 +10,12 @@ import { AppService } from '../app.service';
   styleUrls: ['./gamebox.component.css']
 })
 export class GameboxComponent implements OnInit, OnDestroy {
-  // symbol: string = 'X';
-  //elements: string[] = [null, null, null, null, null, null, null, null, null];
   elements: any;
   turn: boolean = true;
   private gameClear: Subscription;
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,
+    private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
     this.elements = this.appService.elements;
@@ -32,6 +33,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
       } else {
         this.appService.playerTurn();
         this.turn = this.appService.turn;
+        this.dataStorageService.storeData(this.appService.gameData);
       }
 
     } else {
@@ -58,6 +60,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
 
   clearGame() {
     this.appService.clearGame();
+    this.dataStorageService.storeData(this.appService.gameData);
   }
 
   ngOnDestroy() {

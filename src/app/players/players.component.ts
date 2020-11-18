@@ -14,6 +14,7 @@ export class PlayersComponent implements OnInit, OnDestroy {
   constructor(private appService: AppService) { }
 
   ngOnInit() {
+    console.log(this.appService.gameData);
     this.appService.playerChanged.subscribe((turn: boolean) => {
       // console.log(`Before: ${this.turn}`);
       this.turn = turn;

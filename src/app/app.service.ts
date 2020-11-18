@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+// import { DataStorageService } from './data-storage.service';
 
 import { GameModel } from './game.model';
 
 @Injectable({providedIn: 'root'})
 export class AppService {
     gameData: GameModel;
+
     nowPlaying: string = "player-1";
+    // nowPlaying: string;
     turn: boolean = true;
+    // turn: boolean;
+    symbol: string = 'X';
+    // symbol: string;
+    elements = new Array(9);
+
     playerChanged = new Subject<boolean>();
     gameClear = new Subject<{}>();
-    symbol: string = 'X';
-    elements = {};
 
     playerTurn() {
         if(this.nowPlaying === "player-1") {
@@ -28,23 +34,6 @@ export class AppService {
         this.playerChanged.next(this.turn);
         // alert(`Now ${this.nowPlaying}'s turn`);
     }
-
-    // isGameOver() {
-    //     let emptyBoxes = 0;
-    //     for(let i = 0; i < 9; i++) {
-    //         if(!this.elements.hasOwnProperty(i)) {
-    //             emptyBoxes += 1;
-    //         }
-    //     }
-
-    //     if(this.winCheck() === 'win'){
-    //         alert(`Game over: ${this.nowPlaying} won`);
-    //         this.clearGame();
-    //     } else if(emptyBoxes === 0) {
-    //         alert("Game over: No more moves left. It's a tie");
-    //         this.clearGame();
-    //     }
-    // }
 
     winCheck() {
         if(this.elements[0] === this.elements[1] && this.elements[1] === this.elements[2]) {
@@ -85,7 +74,8 @@ export class AppService {
         this.turn = true;
         this.nowPlaying = "player-1"
         this.symbol = 'X';
-        this.elements = {};
+        this.elements = new Array(9);
+        this.gameData = new GameModel(this.elements, this.turn);
         this.gameClear.next(this.elements);
         this.playerChanged.next(this.turn);
     }
