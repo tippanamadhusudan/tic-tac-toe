@@ -14,7 +14,7 @@ export class AppService {
     // turn: boolean;
     symbol: string = 'X';
     // symbol: string;
-    elements = new Array(9);
+    elements = [];
 
     playerChanged = new Subject<boolean>();
     gameClear = new Subject<{}>();

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AppService } from '../app.service';
+import { AppService } from '../../app.service';
+import { DataStorageService } from '../../data-storage.service';
 
 @Component({
   selector: 'app-players',
@@ -9,13 +10,16 @@ import { AppService } from '../app.service';
 })
 export class PlayersComponent implements OnInit, OnDestroy {
   turn: boolean = true;
-  private playerChang: Subscription;
+  private playerChange: Subscription;
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,
+    private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
-    console.log(this.appService.gameData);
-    this.appService.playerChanged.subscribe((turn: boolean) => {
+    console.log("playersComponent.ts");
+    // this.dataStorageService.fetchData();
+    // console.log(this.appService.gameData);
+    this.playerChange = this.appService.playerChanged.subscribe((turn: boolean) => {
       // console.log(`Before: ${this.turn}`);
       this.turn = turn;
       // console.log(`After: ${this.turn}`);
@@ -27,7 +31,7 @@ export class PlayersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.playerChang.unsubscribe();
+    this.playerChange.unsubscribe();
   }
 
 }

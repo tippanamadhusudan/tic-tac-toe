@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AppService } from '../app.service';
-import { DataStorageService } from '../data-storage.service';
+import { AppService } from '../../app.service';
+import { DataStorageService } from '../../data-storage.service';
 
 @Component({
   selector: 'app-gamebox',
@@ -18,8 +18,11 @@ export class GameboxComponent implements OnInit, OnDestroy {
     private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
+    console.log("gameboxComponent.ts");
     this.elements = this.appService.elements;
-    this.appService.gameClear.subscribe((elements: {}) => {
+    console.log(this.appService.elements);
+    console.log(this.elements);
+    this.gameClear = this.appService.gameClear.subscribe((elements: {}) => {
       this.elements = elements;
     });
   }

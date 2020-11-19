@@ -1,28 +1,20 @@
 <div class="heading">
-  <!-- <h1>TIC-TAC-TOE</h1>
-  <p>A game to relax</p> -->
   <div class="navbar-header">
-    <!-- <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
-        <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
-    </button> -->
-    <!-- <a routerLink="/" class="navbar-brand"><h1>TIC-TAC-TOE</h1></a> -->
-    <a class="navbar-brand"><h1>TIC-TAC-TOE</h1></a>
-    <p>A game to relax</p>
-  </div>
-  <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
-    <!-- <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a routerLink="/home" *ngIf="isAuthenticated">Home</a></li>
-        <li routerLinkActive="active"><a routerLink="/auth" *ngIf="!isAuthenticated">Authenticate</a></li>
-    </ul> -->
+    <a 
+      routerLink="/" 
+      class="navbar-brand">
+        <h1>TIC-TAC-TOE
+          <span style="font-size: small;">A game to relax</span>
+        </h1>
+    </a>
+    <a 
+      routerLink="/loginOrSignup" 
+      class="navbar-nav"
+      style="color: rgb(14, 180, 42); font-style: normal;">
+      Login/Signup
+    </a>
   </div>
 </div>
 <div class="container">
-  <div class="row">
-    <div class="col-xs-4 d box">
-      <app-players></app-players>
-    </div>
-    <div class="col-xs-8 box">
-      <app-gamebox></app-gamebox>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>

@@ -15,7 +15,8 @@ export class AppComponent implements OnInit{
     private dataStorageService: DataStorageService) {}
   
   ngOnInit() {
-    this.dataStorageService.fetchData();
+    // this.dataStorageService.fetchData();
+    console.log("appComponent.ts");
   }
   
 }

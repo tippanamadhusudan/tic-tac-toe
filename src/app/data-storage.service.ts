@@ -15,16 +15,21 @@ export class DataStorageService {
         this.http
             .put('https://tic-tac-toe-b0a8c.firebaseio.com/gameData.json', gameData)
             .subscribe(response => {
-                console.log(response);
+                // console.log(response);
+            }, error => {
+                console.log(error);
             });
     }
 
     fetchData() {
+        console.log("dataStorageService: fetchData()");
         this.http
             .get<GameModel>('https://tic-tac-toe-b0a8c.firebaseio.com/gameData.json').subscribe(
                 data => {
                     this.appService.gameData = data;
-                }
+                    console.log(this.appService.gameData);
+                },
+                error => console.log(error)
             );
     }
 }
