@@ -9,9 +9,11 @@ import { GameboxComponent } from './game/gamebox/gamebox.component';
 import { GameResolverService } from './game-resolver.service';
 import { LoginOrSignupComponent } from './login-or-signup/login-or-signup.component';
 import { GameComponent } from './game/game.component';
+import { RulesComponent } from './rules/rules.component';
 
 const appRoutes: Routes = [
   { path: '', component: GameComponent, resolve: [GameResolverService]},
+  { path: 'rules', component: RulesComponent},
   { path: 'loginOrSignup', component: LoginOrSignupComponent}
 ]
 
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
     PlayersComponent,
     GameboxComponent,
     LoginOrSignupComponent,
-    GameComponent
+    GameComponent,
+    RulesComponent
   ],
   imports: [
     BrowserModule,

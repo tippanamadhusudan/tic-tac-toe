@@ -1,20 +1,25 @@
-<div class="heading">
-  <div class="navbar-header">
-    <a 
-      routerLink="/" 
-      class="navbar-brand">
-        <h1>TIC-TAC-TOE
-          <span style="font-size: small;">A game to relax</span>
-        </h1>
-    </a>
-    <a 
-      routerLink="/loginOrSignup" 
-      class="navbar-nav"
-      style="color: rgb(14, 180, 42); font-style: normal;">
-      Login/Signup
-    </a>
+<div class="navbar navbar-default heading">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a 
+        routerLink="/" 
+        class="navbar-brand">
+          <h1>TIC-TAC-TOE
+            <span style="font-size: small;">A game to relax</span>
+          </h1>
+      </a>
+    </div>
+    <div class="nav">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/rules" style="color: rgb(14, 180, 42);">Rules</a></li>
+        <li routerLinkActive="active"><a routerLink="/loginOrSignup" style="color: rgb(14, 180, 42);">Login/Signup</a></li>
+        <!-- <li><a>Rules</a></li> -->
+        <!-- <li><a>Login/Signup</a></li> -->
+      </ul>
+    </div>
   </div>
 </div>
+
 <div class="container">
   <router-outlet></router-outlet>
 </div>
