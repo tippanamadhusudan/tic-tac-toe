@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Resolve } from '@angular/router';
 
 import { AppService } from './app.service';
 import { DataStorageService } from './data-storage.service';
@@ -9,11 +9,18 @@ export class GameResolverService implements Resolve<any> {
     constructor(private appService: AppService,
         private dataStorageService: DataStorageService) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const elements = this.appService.elements;
-        console.log("gameResolverService");
+    resolve() {
+        const elements = this.appService.gameData.elements;
+        let nullElement = true;
 
-        if(elements.length === 0) {
+        for(let i=0 ; i<elements.length; i++) {
+            if(elements[i] != null) {
+                nullElement = false;
+                console.log(false);
+            }
+        }
+
+        if(nullElement) {
             return this.dataStorageService.fetchData();
         } else {
             return elements;

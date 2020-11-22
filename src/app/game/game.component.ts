@@ -10,7 +10,6 @@ export class GameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("gameComponent.ts");
   }
 
 }

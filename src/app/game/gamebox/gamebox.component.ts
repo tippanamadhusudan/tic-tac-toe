@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { GameModel } from 'src/app/game.model';
 
 import { AppService } from '../../app.service';
 import { DataStorageService } from '../../data-storage.service';
@@ -11,31 +12,33 @@ import { DataStorageService } from '../../data-storage.service';
 })
 export class GameboxComponent implements OnInit, OnDestroy {
   elements: any;
-  turn: boolean = true;
-  private gameClear: Subscription;
+  turn: boolean;
+  private change: Subscription;
 
   constructor(private appService: AppService,
     private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
-    console.log("gameboxComponent.ts");
-    this.elements = this.appService.elements;
-    console.log(this.appService.elements);
-    console.log(this.elements);
-    this.gameClear = this.appService.gameClear.subscribe((elements: {}) => {
-      this.elements = elements;
+    this.elements = this.appService.gameData.elements;
+    this.turn = this.appService.gameData.turn;
+
+    this.change = this.appService.change.subscribe((gameData: GameModel) => {
+      this.elements = gameData.elements;
+      this.turn = gameData.turn;
     });
   }
 
   onMarkBox(n: number) {
-    if(!this.appService.elements.hasOwnProperty(n-1)) {
-      this.elements[n-1] = this.appService.symbol;
+    // if(!this.appService.gameData.elements) {
+    if(!this.appService.gameData.elements.hasOwnProperty(n-1)) {
+      this.elements[n-1] = this.appService.gameData.symbol;
 
       if(this.isGameOver()) {
         this.clearGame();
       } else {
         this.appService.playerTurn();
-        this.turn = this.appService.turn;
+        this.turn = this.appService.gameData.turn;
+        this.appService.gameData.elements = this.elements;
         this.dataStorageService.storeData(this.appService.gameData);
       }
 
@@ -53,7 +56,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
     }
 
     if(this.appService.winCheck() === 'win'){
-        alert(`Game over: ${this.appService.nowPlaying} won`);
+        alert(`Game over: ${this.appService.gameData.nowPlaying} won`);
         return true;
     } else if(emptyBoxes === 0) {
         alert("Game over: No more moves left. It's a tie");
@@ -67,7 +70,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.gameClear.unsubscribe();
+    this.change.unsubscribe();
   }
 
 }

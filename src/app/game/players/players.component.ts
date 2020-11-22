@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { GameModel } from 'src/app/game.model';
 import { AppService } from '../../app.service';
 import { DataStorageService } from '../../data-storage.service';
 
@@ -9,29 +10,34 @@ import { DataStorageService } from '../../data-storage.service';
   styleUrls: ['./players.component.css']
 })
 export class PlayersComponent implements OnInit, OnDestroy {
-  turn: boolean = true;
-  private playerChange: Subscription;
+  turn: boolean;
+  private change: Subscription;
 
   constructor(private appService: AppService,
     private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
-    console.log("playersComponent.ts");
-    // this.dataStorageService.fetchData();
-    // console.log(this.appService.gameData);
-    this.playerChange = this.appService.playerChanged.subscribe((turn: boolean) => {
-      // console.log(`Before: ${this.turn}`);
-      this.turn = turn;
-      // console.log(`After: ${this.turn}`);
+    this.change = this.appService.change.subscribe((gameData: GameModel) => {
+      this.turn = gameData.turn;
     });
   }
 
   onClear() {
     this.appService.clearGame();
+    console.log(this.appService.gameData);
+    this.dataStorageService.storeData(this.appService.gameData);
+  }
+
+  onFetch() {
+    // this.dataStorageService.fetchData().subscribe(data => {
+    //   this.appService.gameData = data;
+    // });
+    this.appService.change.next(this.appService.gameData);
+    this.turn = this.appService.gameData.turn;
   }
 
   ngOnDestroy() {
-    this.playerChange.unsubscribe();
+    this.change.unsubscribe();
   }
 
 }
