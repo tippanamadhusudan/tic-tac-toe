@@ -31,14 +31,13 @@ export class LoginOrSignupComponent implements OnInit {
 
     if(this.isSignupPage) {
       this.loginOrSignupService.signup(email, password).subscribe(res => {
-        console.log('Signup: ' + res);
+        // console.log('Signup: ' + res);
       });
     } else {
       this.loginOrSignupService.login(email, password).subscribe(res => {
         this.appService.isSignin = true;
         this.appService.isSignedin();
         this.router.navigate(['/']);
-        console.log('Signin: ' + res);
       });
     }
 

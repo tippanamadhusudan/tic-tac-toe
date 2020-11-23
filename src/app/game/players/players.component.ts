@@ -10,7 +10,7 @@ import { DataStorageService } from '../../data-storage.service';
   styleUrls: ['./players.component.css']
 })
 export class PlayersComponent implements OnInit, OnDestroy {
-  turn: boolean;
+  turn: boolean = true;
   private change: Subscription;
 
   constructor(private appService: AppService,
@@ -24,17 +24,13 @@ export class PlayersComponent implements OnInit, OnDestroy {
 
   onClear() {
     this.appService.clearGame();
-    console.log(this.appService.gameData);
     this.dataStorageService.storeData(this.appService.gameData);
   }
 
-  onFetch() {
-    // this.dataStorageService.fetchData().subscribe(data => {
-    //   this.appService.gameData = data;
-    // });
-    this.appService.change.next(this.appService.gameData);
-    this.turn = this.appService.gameData.turn;
-  }
+  // onFetch() {
+  //   this.appService.change.next(this.appService.gameData);
+  //   this.turn = this.appService.gameData.turn;
+  // }
 
   ngOnDestroy() {
     this.change.unsubscribe();

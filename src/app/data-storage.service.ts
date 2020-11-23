@@ -14,28 +14,18 @@ export class DataStorageService {
     storeData(gameData: GameModel) {
         this.http
             .put('https://tic-tac-toe-b0a8c.firebaseio.com/gameData.json', gameData)
-            .subscribe(response => {
-                // console.log(response);
-            }, error => {
+            .subscribe(res => {}, error => {
                 console.log(error);
             });
     }
 
     fetchData() {
-        //     .get<GameModel>('https://tic-tac-toe-b0a8c.firebaseio.com/gameData.json').subscribe(
-        //         data => {
-        //             this.appService.gameData = data;
-        //             console.log(this.appService.gameData);
-        //         },
-        //         error => console.log(error)
-        //     );
         return this.http
             .get<GameModel>('https://tic-tac-toe-b0a8c.firebaseio.com/gameData.json')
             .pipe(tap(data => {
                 if(data.elements) {
                     this.appService.gameData = data;
                 }
-                // console.log(this.appService.gameData);
             })
         );
     }

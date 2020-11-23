@@ -16,7 +16,6 @@ export class GameResolverService implements Resolve<any> {
         for(let i=0 ; i<elements.length; i++) {
             if(elements[i] != null) {
                 nullElement = false;
-                console.log(false);
             }
         }
 

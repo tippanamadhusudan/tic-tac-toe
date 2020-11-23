@@ -20,7 +20,6 @@ export class AppService {
             this.gameData.nowPlaying = 'player-2';
             this.gameData.symbol = 'O';
         }
-        // this.gameData.playerChange(this.gameData.turn);
 
         this.change.next(this.gameData);
     }
@@ -63,15 +62,10 @@ export class AppService {
 
     clearGame() {
         this.gameData = new GameModel();
-        // console.log(this.gameData);
         this.change.next(this.gameData);
     }
 
     isSignedin() {
         this.signin.next(this.isSignin);
-    }
-
-    logout() {
-        
     }
 }

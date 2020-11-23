@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 export interface AuthResponseData {
     kind: string;
@@ -15,8 +16,10 @@ export interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class LoginOrSignupService {
+    expiTimer: any;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,
+        private router: Router) {}
 
     signup(email: string, password: string) {
         return this.http.post<AuthResponseData>(
@@ -37,7 +40,26 @@ export class LoginOrSignupService {
                 password: password,
                 returnSecureToken: true
             }
-        ).pipe(catchError(this.handleError));
+        ).pipe(catchError(this.handleError),
+        tap(res => {
+            localStorage.setItem('userData', JSON.stringify(res));
+            this.autoLogout(+res.expiresIn * 1000);
+        }));
+    }
+
+    logout() {
+        this.router.navigate(['/loginOrSignup']);
+        localStorage.removeItem('userData');
+        if(this.expiTimer) {
+            clearTimeout(this.expiTimer);
+        }
+        this.expiTimer = null;
+    }
+
+    autoLogout(expDuration: number) {
+        this.expiTimer = setTimeout(() => {
+            this.logout();
+        }, expDuration);
     }
 
     private handleError(errorRes: HttpErrorResponse) {

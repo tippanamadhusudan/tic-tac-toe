@@ -14,7 +14,7 @@
         <li routerLinkActive="active"><a routerLink="/rules" style="color: rgb(14, 180, 42);">Rules</a></li>
         <hr>
         <li routerLinkActive="active"><a routerLink="/loginOrSignup" style="color: rgb(14, 180, 42);" *ngIf='!isSignin'>Login/Signup</a></li>
-        <button class="btn btn-danger" *ngIf='isSignin'>Logout</button>
+        <button class="btn btn-danger" (click)='onLogout()' *ngIf='isSignin'>Logout</button>
       </ul>
     </div>
   </div>
