@@ -10,6 +10,7 @@ import { GameResolverService } from './game-resolver.service';
 import { LoginOrSignupComponent } from './login-or-signup/login-or-signup.component';
 import { GameComponent } from './game/game.component';
 import { RulesComponent } from './rules/rules.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: GameComponent, resolve: [GameResolverService]},
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

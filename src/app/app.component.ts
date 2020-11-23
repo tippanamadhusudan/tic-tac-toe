@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataStorageService } from './data-storage.service';
-import { GameModel } from './game.model';
+import { Subscription } from 'rxjs';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +9,19 @@ import { GameModel } from './game.model';
 })
 export class AppComponent implements OnInit{
   title = 'Tic-Tac-Toe';
+  isSignin: boolean = false;
+  signin: Subscription;
 
-  constructor(private dataStoageService: DataStorageService) {}
+  constructor(private appService: AppService) {}
   
-  ngOnInit() {
-    // const gameData1: GameModel = new GameModel();
-    //   gameData1.elements = ['X', 'O', 'X', null, null, null, 'O', 'X', 'O'];
-    //   gameData1.turn = true;
-    //   gameData1.nowPlaying = 'player-1';
-    //   gameData1.symbol = 'x';
-    //   console.log(gameData1);
-    // this.dataStoageService.storeData(gameData1);
+  ngOnInit() { 
+    this.signin = this.appService.signin.subscribe(data => {
+      this.isSignin = data;
+    });
+  }
+
+  onLogout() {
+
   }
   
 }

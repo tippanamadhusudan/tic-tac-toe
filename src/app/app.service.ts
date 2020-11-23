@@ -6,8 +6,10 @@ import { GameModel } from './game.model';
 @Injectable({providedIn: 'root'})
 export class AppService {
     gameData: GameModel = new GameModel();
-    
+    isSignin: boolean = false;
+
     change = new Subject<{}>();
+    signin = new Subject<boolean>();
 
     playerTurn() {
         this.gameData.turn = !this.gameData.turn;
@@ -63,5 +65,13 @@ export class AppService {
         this.gameData = new GameModel();
         // console.log(this.gameData);
         this.change.next(this.gameData);
+    }
+
+    isSignedin() {
+        this.signin.next(this.isSignin);
+    }
+
+    logout() {
+        
     }
 }
