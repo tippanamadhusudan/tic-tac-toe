@@ -37,6 +37,9 @@ export class GameboxComponent implements OnInit, OnDestroy {
       this.clearGame();
     }
 
+    // Change player turn
+    this.appService.playerTurn();
+
     // Game AI's turn to play
     this.gameAI();
 
@@ -44,12 +47,16 @@ export class GameboxComponent implements OnInit, OnDestroy {
     if(this.isGameOver()) {
       this.clearGame();
     }
+
+    // Change player turn
+    this.appService.playerTurn();
   }
 
   markBox(n: number) {
     if(!this.appService.gameData.elements.hasOwnProperty(n)) {
       this.appService.gameData.elements[n] = this.appService.gameData.symbol;
-      this.appService.playerTurn();
+      this.appService.gameData.turn = !this.appService.gameData.turn;
+      // this.appService.playerTurn();
       this.turn = this.appService.gameData.turn;
       this.dataStorageService.storeData(this.appService.gameData);
 
@@ -59,8 +66,10 @@ export class GameboxComponent implements OnInit, OnDestroy {
   }
 
   gameAI() {
-    let index = this.appService.gameAI();
-    this.markBox(index);
+    if(!this.appService.gameData.turn) {
+      let index = this.appService.gameAI();
+      this.markBox(index);
+    }
   }
 
   isGameOver() {

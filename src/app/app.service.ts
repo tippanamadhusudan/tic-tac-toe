@@ -12,7 +12,7 @@ export class AppService {
     signin = new Subject<boolean>();
 
     playerTurn() {
-        this.gameData.turn = !this.gameData.turn;
+        // this.gameData.turn = !this.gameData.turn;
         if(this.gameData.turn) {
             this.gameData.nowPlaying = 'player-1';
             this.gameData.symbol = 'X';
