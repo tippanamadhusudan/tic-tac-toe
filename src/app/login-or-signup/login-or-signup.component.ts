@@ -37,7 +37,12 @@ export class LoginOrSignupComponent implements OnInit {
       this.loginOrSignupService.login(email, password).subscribe(res => {
         this.appService.isSignin = true;
         this.appService.isSignedin();
+
+        // Navigate to home page
         this.router.navigate(['/']);
+
+        // Assign player-1 and player-2 to the logged in players for realtime gaming.
+        this.appService.assignPlayer(res);
       });
     }
 

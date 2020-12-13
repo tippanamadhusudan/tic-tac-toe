@@ -19,9 +19,20 @@ export class AppService {
         } else {
             this.gameData.nowPlaying = 'player-2';
             this.gameData.symbol = 'O';
+
         }
 
         this.change.next(this.gameData);
+    }
+
+    assignPlayer(res : any) {
+        if(this.gameData.player['player-1'] === '') {
+            this.gameData.player['player-1'] = res.email;
+        } else if (this.gameData.player['player-2'] === '') {
+            this.gameData.player['player-2'] = res.email;
+        } else {
+            alert('NO more empty games. Please wait untill the current game is done!')
+        }
     }
 
     winCheck() {
@@ -58,6 +69,21 @@ export class AppService {
             if(data[7] != null)
                 return 'win';
         }
+    }
+
+    gameAI() {
+        let emptySlots = [];
+
+        // Find all empty boxes
+        for(let i=0; i<9; i++) {
+            if(!this.gameData.elements[i]) {
+                emptySlots.push(i);
+            }
+        }
+
+        // Randomly select an empty box
+        let random = Math.floor(Math.random() * (emptySlots.length-1));
+        return emptySlots[random];
     }
 
     clearGame() {

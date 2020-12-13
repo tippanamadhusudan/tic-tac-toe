@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { AppService } from './app.service';
 import { GameModel } from './game.model';

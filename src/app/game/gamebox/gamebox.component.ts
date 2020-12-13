@@ -29,22 +29,38 @@ export class GameboxComponent implements OnInit, OnDestroy {
   }
 
   onMarkBox(n: number) {
-    // if(!this.appService.gameData.elements) {
-    if(!this.appService.gameData.elements.hasOwnProperty(n-1)) {
-      this.elements[n-1] = this.appService.gameData.symbol;
+    // Check and Mark the box played by the player
+    this.markBox(n);
 
-      if(this.isGameOver()) {
-        this.clearGame();
-      } else {
-        this.appService.playerTurn();
-        this.turn = this.appService.gameData.turn;
-        this.appService.gameData.elements = this.elements;
-        this.dataStorageService.storeData(this.appService.gameData);
-      }
+    // Check if the game is over and if it is, clear the game.
+    if(this.isGameOver()) {
+      this.clearGame();
+    }
+
+    // Game AI's turn to play
+    this.gameAI();
+
+    // Check if the game is over and if it is, clear the game.
+    if(this.isGameOver()) {
+      this.clearGame();
+    }
+  }
+
+  markBox(n: number) {
+    if(!this.appService.gameData.elements.hasOwnProperty(n)) {
+      this.appService.gameData.elements[n] = this.appService.gameData.symbol;
+      this.appService.playerTurn();
+      this.turn = this.appService.gameData.turn;
+      this.dataStorageService.storeData(this.appService.gameData);
 
     } else {
       alert("This box is occupied!");
     }
+  }
+
+  gameAI() {
+    let index = this.appService.gameAI();
+    this.markBox(index);
   }
 
   isGameOver() {

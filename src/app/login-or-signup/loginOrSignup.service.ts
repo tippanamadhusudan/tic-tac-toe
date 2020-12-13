@@ -43,6 +43,7 @@ export class LoginOrSignupService {
         ).pipe(catchError(this.handleError),
         tap(res => {
             localStorage.setItem('userData', JSON.stringify(res));
+            // console.log(res);
             this.autoLogout(+res.expiresIn * 1000);
         }));
     }
