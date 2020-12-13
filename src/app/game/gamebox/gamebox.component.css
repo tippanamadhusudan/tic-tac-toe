@@ -1,7 +1,7 @@
 .tic-container {
     border: 1px solid black;
-    width: 600px;
-    height: 600px;
+    width: 35rem;
+    height: 35rem;
 }
 .tic-row {
     height: 33.33%;

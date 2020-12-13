@@ -13,7 +13,10 @@ import { DataStorageService } from '../../data-storage.service';
 export class GameboxComponent implements OnInit, OnDestroy {
   elements: any;
   turn: boolean;
+  playingWithPlayer: boolean = false;
+
   private change: Subscription;
+  private playingWithChange: Subscription;
 
   constructor(private appService: AppService,
     private dataStorageService: DataStorageService) { }
@@ -25,6 +28,10 @@ export class GameboxComponent implements OnInit, OnDestroy {
     this.change = this.appService.change.subscribe((gameData: GameModel) => {
       this.elements = gameData.elements;
       this.turn = gameData.turn;
+    });
+
+    this.playingWithChange = this.appService.playingWithChange.subscribe((data: boolean) => {
+      this.playingWithPlayer = data;
     });
   }
 
@@ -40,16 +47,10 @@ export class GameboxComponent implements OnInit, OnDestroy {
     // Change player turn
     this.appService.playerTurn();
 
-    // Game AI's turn to play
-    this.gameAI();
-
-    // Check if the game is over and if it is, clear the game.
-    if(this.isGameOver()) {
-      this.clearGame();
+    if(!this.playingWithPlayer) {
+      // Game AI's turn to play
+      this.gameAI();
     }
-
-    // Change player turn
-    this.appService.playerTurn();
   }
 
   markBox(n: number) {
@@ -70,6 +71,14 @@ export class GameboxComponent implements OnInit, OnDestroy {
       let index = this.appService.gameAI();
       this.markBox(index);
     }
+
+    // Check if the game is over and if it is, clear the game.
+    if(this.isGameOver()) {
+      this.clearGame();
+    }
+
+    // Change player turn
+    this.appService.playerTurn();
   }
 
   isGameOver() {
@@ -96,6 +105,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.change.unsubscribe();
+    this.playingWithChange.unsubscribe();
   }
 
 }

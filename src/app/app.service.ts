@@ -7,9 +7,11 @@ import { GameModel } from './game.model';
 export class AppService {
     gameData: GameModel = new GameModel();
     isSignin: boolean = false;
-
+    playingWithPlayer: boolean = false;
+    
     change = new Subject<{}>();
     signin = new Subject<boolean>();
+    playingWithChange = new Subject<boolean>();
 
     playerTurn() {
         // this.gameData.turn = !this.gameData.turn;

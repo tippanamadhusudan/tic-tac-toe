@@ -2,12 +2,24 @@
     <div class="row">
         <h2>TIC-TAC-TOE</h2>
     </div>
-    <hr><hr>
-    <h5>Player-1: <span style="color: red;" *ngIf="turn">Playing</span></h5>
-    <!-- <p>score: 0</p> -->
     <hr>
-    <h5>Player-2: <span style="color: red;" *ngIf="!turn">Playing</span></h5>
-    <!-- <p>score: 0</p> -->
+
+    <p style="color: salmon;" *ngIf='playingWithPlayer'>Currently playing with Another Player</p>
+    <p style="color: salmon;" *ngIf='!playingWithPlayer'>Currently playing with Computer</p>
+
+    <p *ngIf='playingWithPlayer'>To play with Computer</p>
+    <p *ngIf='!playingWithPlayer'>To play with Another Player</p>
+
+    <button class="btn btn-primary" (click)="onChangePlayer()">Click here</button>
+    <hr>
+    
+    <h5 *ngIf='playingWithPlayer'>Player-1: <span style="color: red;" *ngIf="turn">Playing</span></h5>
+    <h5 *ngIf='!playingWithPlayer'>Player: <span style="color: red;" *ngIf="turn">Playing</span></h5>
+
+    <hr>
+    <h5 *ngIf='playingWithPlayer'>Player-2: <span style="color: red;" *ngIf="!turn">Playing</span></h5>
+    <h5 *ngIf='!playingWithPlayer'>Computer: <span style="color: red;" *ngIf="!turn">Playing</span></h5>
+
     <hr><hr>
     <div class="row">
         <!-- <button class="btn btn-primary">New game</button> |  -->

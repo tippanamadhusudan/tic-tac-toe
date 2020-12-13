@@ -2,6 +2,15 @@
     margin: 1% 2.5% 1% 1%;
     padding-left: 5%;
     padding-right: 5%;
+    height: auto;
+}
+
+.box1 {
+    float: left;
+    width: 30%;
+}
+.box2 {
+    float: right;
 }
 .d {
     background-color: rgb(46, 79, 99);
