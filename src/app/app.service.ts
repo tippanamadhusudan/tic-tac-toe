@@ -8,6 +8,16 @@ export class AppService {
     gameData: GameModel = new GameModel();
     isSignin: boolean = false;
     playingWithPlayer: boolean = false;
+    private gameWinCon = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
     
     change = new Subject<{}>();
     signin = new Subject<boolean>();
@@ -38,55 +48,8 @@ export class AppService {
     }
 
     winCheck() {
-        if(this.winChecking()) return true;
-
-        // const data = this.gameData.elements;
-        // if(data[0] === data[1] && data[1] === data[2]) {
-        //     if(data[1] != null)
-        //         return 'win';
-        // }
-        // else if(data[0] === data[3] && data[3] === data[6]) {
-        //     if(data[3] != null)
-        //         return 'win';
-        // }
-        // else if(data[0] === data[4] && data[4] === data[8]) {
-        //     if(data[4] != null)
-        //         return 'win';
-        // }
-        // else if(data[1] === data[4] && data[4] === data[7]) {
-        //     if(data[4] != null)
-        //         return 'win';
-        // }
-        // else if(data[2] === data[5] && data[5] === data[8]) {
-        //     if(data[5] != null)
-        //         return 'win';
-        // }
-        // else if(data[2] === data[4] && data[4] === data[6]) {
-        //     if(data[4] != null)
-        //         return 'win';
-        // }
-        // else if(data[3] === data[4] && data[3] === data[5]) {
-        //     if(data[4] != null)
-        //         return 'win';
-        // }
-        // else if(data[6] === data[7] && data[7] === data[8]) {
-        //     if(data[7] != null)
-        //         return 'win';
-        // }
-    }
-
-    private winChecking() {
         const data = this.gameData.elements;
-        let ar = [
-            [0,1,2],
-            [3,4,5],
-            [6,7,8],
-            [0,3,6],
-            [1,4,7],
-            [2,5,8],
-            [0,4,8],
-            [2,4,6]
-        ]; 
+        let ar = this.gameWinCon; 
 
         for(let j=0; j<8; j++) {
             let arr = ar[j];
@@ -97,27 +60,18 @@ export class AppService {
                 }
             }
         }
+        return false;
     }
 
     private AIPlay(symbol: string) {
         const data = this.gameData.elements;
-        let ar = [
-            [0,1,2],
-            [3,4,5],
-            [6,7,8],
-            [0,3,6],
-            [1,4,7],
-            [2,5,8],
-            [0,4,8],
-            [2,4,6]
-        ]; 
+        let ar = this.gameWinCon; 
         let count: number = 0;
         let n: number = 0;
         let index: number;
 
         for(let j=0; j<8; j++) {
             let arr = ar[j];
-
             for(let i=0; i<3; i++) {
                 if(data[arr[i]] === symbol) {
                     n++;
@@ -125,12 +79,10 @@ export class AppService {
                     count++;
                     index = arr[i];
                 }
-            }
-            
+            } 
             if(n === 2 && count === 1) {
                 return index;
             }
-
             count = 0;
             n = 0;
         }
@@ -141,12 +93,10 @@ export class AppService {
 
         // Check if there is any win chance and tick that box.
         let index = this.AIPlay('O');
-        console.log('Attack', index);
 
         // If no win condition, go for defense
         if(!index) {
             index = this.AIPlay('X');
-            console.log('Defense', index);
         }
 
         // Randomly select a box.
@@ -174,4 +124,40 @@ export class AppService {
     isSignedin() {
         this.signin.next(this.isSignin);
     }
+
+    // winCheck() {
+    //     const data = this.gameData.elements;
+    //     if(data[0] === data[1] && data[1] === data[2]) {
+    //         if(data[1] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[0] === data[3] && data[3] === data[6]) {
+    //         if(data[3] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[0] === data[4] && data[4] === data[8]) {
+    //         if(data[4] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[1] === data[4] && data[4] === data[7]) {
+    //         if(data[4] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[2] === data[5] && data[5] === data[8]) {
+    //         if(data[5] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[2] === data[4] && data[4] === data[6]) {
+    //         if(data[4] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[3] === data[4] && data[3] === data[5]) {
+    //         if(data[4] != null)
+    //             return 'win';
+    //     }
+    //     else if(data[6] === data[7] && data[7] === data[8]) {
+    //         if(data[7] != null)
+    //             return 'win';
+    //     }
+    // }
 }
