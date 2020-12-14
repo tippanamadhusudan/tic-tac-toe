@@ -39,18 +39,23 @@ export class GameboxComponent implements OnInit, OnDestroy {
     // Check and Mark the box played by the player
     this.markBox(n);
 
-    // Check if the game is over and if it is, clear the game.
-    if(this.isGameOver()) {
-      this.clearGame();
-    }
+    // Play sound
+    this.soundEffect();
 
-    // Change player turn
-    this.appService.playerTurn();
+    setTimeout(() => {
+      // Check if the game is over and if it is, clear the game.
+      if(this.isGameOver()) {
+        this.clearGame();
+      }
 
-    if(!this.playingWithPlayer) {
-      // Game AI's turn to play
-      this.gameAI();
-    }
+      // Change player turn
+      this.appService.playerTurn();
+
+      if(!this.playingWithPlayer) {
+        // Game AI's turn to play
+        this.gameAI();
+      }
+    }, 250)
   }
 
   markBox(n: number) {
@@ -70,6 +75,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
     if(!this.appService.gameData.turn) {
       let index = this.appService.gameAI();
       this.markBox(index);
+      this.soundEffect();
     }
 
     // Check if the game is over and if it is, clear the game.
@@ -81,6 +87,12 @@ export class GameboxComponent implements OnInit, OnDestroy {
     this.appService.playerTurn();
   }
 
+  soundEffect() {
+    let src = 'assets/short_notification.mp3';
+    let audio = new Audio(src);
+    audio.play();
+  }
+
   isGameOver() {
     let emptyBoxes = 0;
     for(let i = 0; i < 9; i++) {
@@ -89,7 +101,7 @@ export class GameboxComponent implements OnInit, OnDestroy {
         }
     }
 
-    if(this.appService.winCheck() === 'win'){
+    if(this.appService.winCheck()){
         alert(`Game over: ${this.appService.gameData.nowPlaying} won`);
         return true;
     } else if(emptyBoxes === 0) {
