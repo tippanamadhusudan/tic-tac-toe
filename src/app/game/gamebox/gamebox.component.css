@@ -1,6 +1,5 @@
 table {
-    width: 100%;
-    /* width: 100%; */
+    width: 39vw;
     height: 39vw;
     color: rgb(1, 92, 87);
     font-size: 7vw;
@@ -21,30 +20,8 @@ table, td, th {
 }
 
 @media screen and (max-width:600px) {
-    .table {
-      width: 100%;
-      height: 100vw;
+    table {
+      width: 90vw;
+      height: 90vw;
     }
 }
-/* .tic-container {
-    background-color: cornsilk;
-    border: 0.5px solid black;
-    width: 39vw;
-    height: 39vw;
-}
-.row1, .row2, .row3 {
-    float: left;
-}
-.tic-row {
-    height: 13vw;
-    border: 0.5px solid black;
-    text-align: center;
-}
-.tic-box {
-    color: rgb(1, 92, 87);
-    width: 13vw;
-    border: 0.5px solid black;
-    text-align: center;
-    font-size: 9vw;
-    font-weight: 100;
-} */

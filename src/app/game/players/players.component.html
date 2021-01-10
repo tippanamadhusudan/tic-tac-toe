@@ -1,17 +1,18 @@
-<div class="container details">
-    <div class="row">
+<div class="details">
+    <!-- <div class="row">
         <h2>TIC-TAC-TOE</h2>
     </div>
-    <hr>
+    <hr> -->
 
-    <p style="color: salmon;" *ngIf='playingWithPlayer'>Currently playing with Another Player</p>
-    <p style="color: salmon;" *ngIf='!playingWithPlayer'>Currently playing with Computer</p>
+    <!-- <p style="color: salmon;" *ngIf='playingWithPlayer'>Currently playing with Another Player</p>
+    <p style="color: salmon;" *ngIf='!playingWithPlayer'>Currently playing with Computer</p> -->
+<!-- 
+    <p *ngIf='playingWithPlayer'>Play with Computer</p>
+    <p *ngIf='!playingWithPlayer'>Play with Another Player</p> -->
 
-    <p *ngIf='playingWithPlayer'>To play with Computer</p>
-    <p *ngIf='!playingWithPlayer'>To play with Another Player</p>
-
-    <button class="btn btn-primary" (click)="onChangePlayer()">Click here</button>
-    <hr>
+    <!-- <button class="btn btn-primary" (click)="onChangePlayer()" *ngIf='playingWithPlayer'>Play with Computer</button>
+    <button class="btn btn-primary" (click)="onChangePlayer()" *ngIf='!playingWithPlayer'>Play with Another Player</button>
+    <hr> -->
     
     <h5 *ngIf='playingWithPlayer'>Player-1: <span style="color: red;" *ngIf="turn">Playing</span></h5>
     <h5 *ngIf='!playingWithPlayer'>Player: <span style="color: red;" *ngIf="turn">Playing</span></h5>
@@ -21,11 +22,24 @@
     <h5 *ngIf='!playingWithPlayer'>Computer: <span style="color: red;" *ngIf="!turn">Playing</span></h5>
 
     <hr><hr>
-    <div class="row">
+    <div class="clear">
         <!-- <button class="btn btn-primary">New game</button> |  -->
         <button 
             class="btn btn-danger"
             (click)="onClear()">Clear game</button>
+        |
+        <button 
+            class="btn btn-primary" 
+            (click)="onChangePlayer()" 
+            *ngIf='playingWithPlayer'>
+            Computer
+        </button>
+        <button 
+            class="btn btn-primary" 
+            (click)="onChangePlayer()" 
+            *ngIf='!playingWithPlayer'>
+            Another Player
+        </button>
     </div>
     <hr>
     <!-- <div class="row">

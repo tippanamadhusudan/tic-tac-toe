@@ -11,9 +11,9 @@
     </div>
     <div class="nav">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a routerLink="/rules" style="color: rgb(14, 180, 42);">Rules</a></li>
+        <li routerLinkActive="active" class="rules"><a routerLink="/rules">Rules</a></li>
         <hr>
-        <li routerLinkActive="active"><a routerLink="/loginOrSignup" style="color: rgb(14, 180, 42);" *ngIf='!isSignin'>Login/Signup</a></li>
+        <li routerLinkActive="active" class="auth"><a routerLink="/loginOrSignup" *ngIf='!isSignin'>Login/Signup</a></li>
         <button class="btn btn-danger" (click)='onLogout()' *ngIf='isSignin'>Logout</button>
       </ul>
     </div>

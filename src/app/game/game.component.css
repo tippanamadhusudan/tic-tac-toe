@@ -1,20 +1,31 @@
-.box {
-    float: left;
-    margin: 1% 2.5% 1% 1%;
-    padding-left: 5%;
-    padding-right: 5%;
-    height: auto;
+.main {
+    /* float: left; */
+    display: flex;
+    margin: 1%;
+    justify-content: center;
+    /* height: auto; */
 }
+
+.box {
+    margin: 1%;
+    padding: 1%;
+}
+
 .box1 {
     width: 30%;
-    background-color: rgb(46, 79, 99);
+    background-color: rgb(13, 26, 36);
 }
+
 .box2 {
-    width: 60%;
+    width: 70%;
 }
 
 @media screen and (max-width:900px) {
-    .box1, .box2 {
+    .main {
+        flex-direction: column;
+    }
+
+    .box {
       width: 100%;
     }
 }
