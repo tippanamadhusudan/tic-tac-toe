@@ -1,5 +1,7 @@
 .details {
-    border: 1px hidden rgb(44, 42, 11);
+    /* border: 1px hidden rgb(44, 42, 11); */
+    background-color: rgb(13, 26, 36);
+    padding-top: 2px;
     color: whitesmoke;
     text-align: center;
 }
