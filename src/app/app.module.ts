@@ -7,15 +7,13 @@ import { AppComponent } from './app.component';
 import { PlayersComponent } from './game/players/players.component';
 import { GameboxComponent } from './game/gamebox/gamebox.component';
 import { GameResolverService } from './game-resolver.service';
-import { LoginOrSignupComponent } from './login-or-signup/login-or-signup.component';
 import { GameComponent } from './game/game.component';
-import { RulesComponent } from './rules/rules.component';
 import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: GameComponent, resolve: [GameResolverService]},
-  { path: 'rules', component: RulesComponent},
-  { path: 'loginOrSignup', component: LoginOrSignupComponent}
+  { path: 'rules', loadChildren: () => import('./rules/rules.module').then(m => m.RulesModule)},
+  { path: 'loginOrSignup', loadChildren: () => import('./login-or-signup/login-or-signup.module').then(m => m.LoginOrSignupModule)}
 ]
 
 @NgModule({
@@ -23,9 +21,7 @@ const appRoutes: Routes = [
     AppComponent,
     PlayersComponent,
     GameboxComponent,
-    LoginOrSignupComponent,
     GameComponent,
-    RulesComponent
   ],
   imports: [
     BrowserModule,

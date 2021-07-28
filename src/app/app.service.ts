@@ -94,6 +94,7 @@ export class AppService {
         // Check if there is any win chance and tick that box.
         let index = this.AIPlay('O');
 
+        
         // If no win condition, go for defense
         if(!index) {
             index = this.AIPlay('X');
